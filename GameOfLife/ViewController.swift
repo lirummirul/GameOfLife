@@ -132,9 +132,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 text = "Жизнь"
                 textLitle = "Ку-ку!"
             } else {
-                imageName = "death"
+                imageName = "all"
                 text = "Смерть"
-                textLitle = "Уже совсем мёртвая"
+                textLitle = "уже совсем мёртвая"
             }
         } else if isAlive {
             imageName = "spark"
