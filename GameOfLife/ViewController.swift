@@ -79,6 +79,7 @@ class ViewController: UIViewController {
             tableView.insertRows(at: [indexPath], with: .automatic)
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         } else if cells.count > 3 && !isActiveFunc(1) && !isActiveFunc(2) && !isActiveFunc(3) && !isLifeFunc(3) {
+            cells[cells.count - 2].isAlive = true
             var lastLifeIndex: Int?
             for i in (0..<cells.count).reversed() {
                 if cells[i].isLife == true {
