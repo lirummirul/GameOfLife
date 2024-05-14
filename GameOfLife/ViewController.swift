@@ -73,41 +73,43 @@ class ViewController: UIViewController {
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         
         if cells.count > 3 && isActiveFunc(1) && isActiveFunc(2) && isActiveFunc(3) {
-            let bonusCell = Cell(isAlive: false, isLife: true)
-            cells.append(bonusCell)
-            let indexPath = IndexPath(row: cells.count - 1, section: 0)
-            tableView.insertRows(at: [indexPath], with: .automatic)
-            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            dropNewCell()
         } else if cells.count > 3 && !isActiveFunc(1) && !isActiveFunc(2) && !isActiveFunc(3) && !isLifeFunc(3) {
-            cells[cells.count - 2].isAlive = true
-            var lastLifeIndex: Int?
-            for i in (0..<cells.count).reversed() {
-                if cells[i].isLife == true {
-                    lastLifeIndex = i
-                    break
-                }
+            updateNewCell()
+        }
+    }
+    
+    func dropNewCell() {
+        let bonusCell = Cell(isAlive: false, isLife: true)
+        cells.append(bonusCell)
+        let indexPath = IndexPath(row: cells.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+    
+    func updateNewCell() {
+        cells[cells.count - 2].isAlive = true
+        var lastLifeIndex: Int?
+        for i in (0..<cells.count).reversed() {
+            if cells[i].isLife == true {
+                lastLifeIndex = i
+                break
             }
-            if let index = lastLifeIndex {
-                let deathCell = Cell(isAlive: false, isLife: false)
-                cells[index] = deathCell
-                let indexPath = IndexPath(row: index, section: 0)
-                tableView.reloadRows(at: [indexPath], with: .automatic)
-            }
+        }
+        if let index = lastLifeIndex {
+            let deathCell = Cell(isAlive: false, isLife: false)
+            cells[index] = deathCell
+            let indexPath = IndexPath(row: index, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
         }
     }
 
     func isActiveFunc(_ i: Int) -> Bool {
-        if cells[cells.count - i].isAlive {
-            return true
-        }
-        return false
+        return cells[cells.count - i].isAlive
     }
     
     func isLifeFunc(_ i: Int) -> Bool {
-        if let a = cells[cells.count - i].isLife {
-            return true
-        }
-        return false
+        return cells[cells.count - i].isLife ?? false
     }
 }
 
